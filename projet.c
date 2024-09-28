@@ -139,7 +139,7 @@ int main()
         break;
         case 5:affichagenombertotalstock(livre);
         break;
-        case 0 :printf("Exiting the program.\n");
+        case 0 :printf("Quitter le programme.\n");
                 break;
         default :
             printf("Cette option n'existe pas");
