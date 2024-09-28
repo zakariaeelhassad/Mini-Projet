@@ -84,16 +84,16 @@ void supprimerlivre(Livre livre[],int anumberlivre, char titrecom[]){
             printf("titre : %s <<< auteur : %s <<< prix : %.2f <<< stock : %d .\n",livre[i].titre,livre[i].auteur , livre[i].prix ,livre[i].stock);
 
              strcpy(temtitre,livre[i].titre);
-             strcpy(tempauteur,livre[i].titre);
+             strcpy(tempauteur,livre[i].auteur);
              tempP = livre[i].prix;
              temq = livre[i].stock;
 
              for(int j = 0 ; j < numberlivre ; j++  ){
 
-               strcpy(livre[j].titre,livre[j+1].titre) ;
-               strcpy(livre[j].auteur , livre[j+1].auteur ) ;
-                livre[j].prix = livre[j+1].prix  ;
-                livre[j].stock = livre[j+1].stock  ;
+               strcpy(livre[i].titre,livre[j+1].titre) ;
+               strcpy(livre[i].auteur, livre[j+1].auteur ) ;
+                livre[i].prix = livre[j+1].prix  ;
+                livre[i].stock = livre[j+1].stock  ;
              }
              numberlivre -- ;
              printf("livre %s supprimé avec succès!\n\n\n", temtitre);
