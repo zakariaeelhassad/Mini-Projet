@@ -14,81 +14,100 @@ typedef struct {
 
 
 void ajouterlivre(Livre livre[]){
-    printf("You chose to add a new livre.\n");
+    int nombert;
+    printf("Vous avez choisi d'ajouter un nouveau livre.\n");
+    printf("combien des livres tu veux ajouter :");
+    scanf("%d",&nombert);
     if(numberlivre < MAX_LIVRE){
 
     livre[numberlivre].id = numberlivre+1;
-    printf("livre:%d \n",livre[numberlivre].id);
-    printf("TITRE: ");
-    scanf(" %[^\n]s",livre[numberlivre].titre);
-    printf("AUTEUR: ");
-    scanf(" %[^\n]s",livre[numberlivre].auteur);
-    printf("PRIX: ");
-    scanf(" %f", &livre[numberlivre].prix);
-    printf("STOCK: ");
-    scanf(" %d", &livre[numberlivre].stock);
-    printf("LIVRE : %d \n",livre[numberlivre].id);
-    printf("titre de livre '%s' , auteur  thde livre '%s' , prix '%.2f' et le stock '%d' . \n",livre[numberlivre].titre,livre[numberlivre].auteur,livre[numberlivre].prix,livre[numberlivre].stock);
-    printf(" added successfully!\n\n");
-    numberlivre++;
+    for(int i = 0; i < nombert; i++) {
+
+        livre[numberlivre].id = numberlivre+1;
+        printf("livre:%d \n",livre[numberlivre].id);
+        printf("TITRE: ");
+        scanf(" %[^\n]s",livre[numberlivre].titre);
+        printf("AUTEUR: ");
+        scanf(" %[^\n]s",livre[numberlivre].auteur);
+        printf("PRIX: ");
+        scanf(" %f", &livre[numberlivre].prix);
+        printf("STOCK: ");
+        scanf(" %d", &livre[numberlivre].stock);
+        printf("LIVRE : %d \n",livre[numberlivre].id);
+        printf("titre de livre '%s' , auteur  thde livre '%s' , prix '%.2f' et le stock '%d' . \n",livre[numberlivre].titre,livre[numberlivre].auteur,livre[numberlivre].prix,livre[numberlivre].stock);
+        printf(" ajoute avec succes!\n\n\n");
+        numberlivre++;
+    }
     }
      else {
-        printf("student limit reached. Cannot add more student.\n\n");
+        printf("limite de livres atteinte. Impossible d'ajouter plus de livre.\n\n\n");
     }
 }
-
-/*void afficherlivre(Livre livre[], int numberlivre, char titrecom[]) {
-    printf("Enter the student name to search for: ");
-    scanf("%s", titrecom);
-    for (int i = 0; i < numberlivre; i++) {
-        if (strcmp(livre[i].titre, titrecom) == 0) {
-            printf("The student is '%s'.\n", titrecom);
-            return;
-        }
-    }
-    printf("Student not found.\n");
-}*/
 
 void afficherlivre (Livre livre[]){
     for (int i = 0 ; i < numberlivre ; i++){
         printf("livre : %d \n",livre[i].id) ;
-        printf("titre : %s <<< auteur : %s <<< prix : %.2f <<< stock : %d .\n",livre[i].titre,livre[i].auteur,livre[i].prix,livre[i].stock);
+        printf("titre : %s <<< auteur : %s <<< prix : %.2f <<< stock : %d .\n\n\n",livre[i].titre,livre[i].auteur,livre[i].prix,livre[i].stock);
     }
 }
 
 void mettreajourqlivre(Livre livre[],int numberlivre,char titrecom[]){
-    printf("Enter the student name to search for: ");
+    printf("Entrer le titre de livre  a rechercher: ");
     scanf("%s", titrecom);
     for (int i = 0; i < numberlivre; i++) {
         if (strcmp(livre[i].titre, titrecom) == 0) {
                 printf("livre : %d \n",livre[i].id) ;
-                printf("titre : %s <<< auteur : %s <<< prix : %.2f <<< stock : %d .\n",livre[i].titre,livre[i].auteur,livre[i].prix,livre[i].stock);
+                printf("titre : %s <<< stock : %d .\n",livre[i].titre,livre[i].stock);
         }
 
     }
     printf("modifier la quantite :");
     scanf("%d", &livre[numberlivre-1].stock);
 
-    printf("student updated successfully!\n\n");
+    printf("Quantite est mettre a jour avec succes!\n\n\n");
 }
 
-void supprimerlivre(Livre livre[],int numberlivre, char titrecom[]){
-    printf("Enter the student name to search for: ");
+void supprimerlivre(Livre livre[],int anumberlivre, char titrecom[]){
+    printf("Entrer le titre de livre  a rechercher: ");
     scanf("%s", titrecom);
+    int found = 0 ;
+    int ids;
+    char temtitre[20];
+    char tempauteur[20];
+    int tempP;
+    float temq;
+
     for (int i = 0; i < numberlivre; i++) {
+
         if (strcmp(livre[i].titre, titrecom) == 0) {
-                if(livre[i].titre == livre[i].id){
-                    for (int j = i; j < numberlivre - 1; j++) {
-                    livre[j] = livre[j + 1];
-                }
-                numberlivre--;
-                printf("student %s deleted successfully!\n", titrecom);
-                }
-            return;
+            printf("livre : %d \n",livre[i].id) ;
+            printf("titre : %s <<< auteur : %s <<< prix : %.2f <<< stock : %d .\n",livre[i].titre,livre[i].auteur , livre[i].prix ,livre[i].stock);
+
+             strcpy(temtitre,livre[i].titre);
+             strcpy(tempauteur,livre[i].titre);
+             tempP = livre[i].prix;
+             temq = livre[i].stock;
+
+             for(int j = 0 ; j < numberlivre ; j++  ){
+
+               strcpy(livre[j].titre,livre[j+1].titre) ;
+               strcpy(livre[j].auteur , livre[j+1].auteur ) ;
+                livre[j].prix = livre[j+1].prix  ;
+                livre[j].stock = livre[j+1].stock  ;
+             }
+             numberlivre -- ;
+             printf("livre %s supprimé avec succès!\n\n\n", temtitre);
+             break;
         }
     }
-    printf("Student not found.\n");
+}
 
+void affichagenombertotalstock(Livre livre[]){
+    int s =0;
+    for( int i = 0 ; i < numberlivre ;i++ ){
+        s = s + livre[i].stock ;
+    }
+    printf("le nomber total des livre en stock %d \n\n\n: ",s);
 }
 
 void menu(){
@@ -118,12 +137,12 @@ int main()
         break;
         case 4:supprimerlivre(livre,numberlivre,titrecom);
         break;
-        /*case 5:displaystudent(students);
-        break;*/
+        case 5:affichagenombertotalstock(livre);
+        break;
         case 0 :printf("Exiting the program.\n");
                 break;
         default :
-            printf("hsdhd");
+            printf("Cette option n'existe pas");
     }
     }while(choice != 0);
 
